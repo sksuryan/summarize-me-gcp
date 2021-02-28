@@ -1,0 +1,8 @@
+/__pycache__
+/.vscode
+/env
+.env
+.env.development
+/static
+converted.wav
+key.json
