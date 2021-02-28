@@ -101,7 +101,7 @@ const Transcript = ({ videoContainer, transcript, summary, setMessage }) => {
     let { current } = videoContainer;
     window.addEventListener("resize", () => setHeight(current.clientHeight));
 
-    setTimeout(() => setHeight(current.clientHeight), 20);
+    setTimeout(() => setHeight(current.clientHeight), 300);
 
     return () =>
       window.removeEventListener("resize", () =>
