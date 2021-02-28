@@ -140,6 +140,12 @@ const KeywordContainer = styled.div`
 
       margin-top: 4px;
     }
+
+    @media (max-width: 550px) {
+      :last-child {
+        margin-right: 0;
+      }
+    }
   }
 `;
 
@@ -164,23 +170,8 @@ const TimeStamps = ({ seekVideoPlayer, timestamps }) => {
   const [isChecked, setIsChecked] = useState(true);
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      if (window.innerWidth >= 1024) {
-        setIsChecked(true);
-      } else {
-        setIsChecked(false);
-      }
-    });
-
-    return () =>
-      window.removeEventListener("resize", () => {
-        if (window.innerWidth >= 1024) {
-          setIsChecked(true);
-        } else {
-          setIsChecked(false);
-        }
-      });
-    // eslint-disable-next-line
+    const checked = window.innerWidth >= 1024 ? true : false;
+    setIsChecked(checked);
   }, []);
 
   const keywords = Object.keys(timestamps).filter((keyword) => {
@@ -209,7 +200,7 @@ const TimeStamps = ({ seekVideoPlayer, timestamps }) => {
             type="checkbox"
             className="timestamps__checkbox"
             checked={isChecked}
-            onClick={() => setIsChecked(!isChecked)}
+            onChange={() => setIsChecked(!isChecked)}
           />
           <div className="timestamps__arrow-indicator"></div>
           <div>

@@ -41,12 +41,12 @@ const SubmitButton = styled.button`
   }
 `;
 
-const Upload = ({ setVideo, video, setData }) => {
+const Upload = ({ setVideo, video, setData, setMessage }) => {
   const [uploadStatus, setUploadStatus] = useState(null);
   const onSubmit = (e) => {
     const URL = "https://summarize-tzgcxgxl4a-wl.a.run.app/videos/create";
 
-    if (video) {
+    if (video.name) {
       const formData = new FormData();
       formData.append("video", video);
       axios
@@ -63,9 +63,15 @@ const Upload = ({ setVideo, video, setData }) => {
         })
         .then((res) => {
           setUploadStatus(null);
+          setMessage(null);
           setData(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch(() => setMessage("seems like we encountered an error🤦‍♂"));
+
+      setMessage("Please wait, while we process your data🥳");
+    } else {
+      setMessage("uh huh, please select a video😅");
+      setTimeout(() => setMessage(null), 5000);
     }
   };
 

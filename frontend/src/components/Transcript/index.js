@@ -44,38 +44,53 @@ const DownloadDiv = styled.div`
   padding-bottom: 8px;
 `;
 
-const Download = styled.div`
+const OptionContainer = styled.div`
+  display: flex;
+`;
+
+const OptionButton = styled.button`
   border: none;
   outline: none;
   background: none;
 
-  width: fit-content;
-
+  font-family: "Montserrat";
   font-size: 16px;
 
-  margin-bottom: 8px;
-  padding: 0 3px;
-  padding-bottom: 1px;
+  border-bottom: 2px solid
+    ${(props) => (props.isSelected ? "#2d0fb4" : "#979797")};
 
-  cursor: pointer;
+  flex: 50%;
 
-  border-bottom: 1px solid #3c29cc;
+  padding: 6px;
+  margin: 6px;
+  margin-bottom: 16px;
 
-  @media (max-width: 768px) {
-    margin-bottom: 16px;
-
-    font-size: 14px;
-  } ;
+  box-sizing: border-box;
 `;
 
-const Transcript = ({ videoContainer, transcript, summary }) => {
+const Transcript = ({ videoContainer, transcript, summary, setMessage }) => {
   const [height, setHeight] = useState(null);
+  const [isTranscriptSelected, setIsTranscriptSelected] = useState(true);
 
-  const onSubmit = () => {
-    window.download("Transcript.txt", transcript);
+  const onDownload = () => {
+    isTranscriptSelected
+      ? window.download("Transcript.txt", transcript)
+      : window.download("Summary.txt", summary);
+
+    setMessage("Starting download!🎉");
+    setTimeout(() => setMessage(null), 5000);
   };
-  const onSubmit1 = () => {
-    window.download("Summary.txt", summary);
+
+  const onCopy = () => {
+    const textToBeCopied = isTranscriptSelected ? transcript : summary;
+
+    navigator.clipboard
+      .writeText(textToBeCopied)
+      .then(() => {
+        setMessage("Copied!🎉");
+        setTimeout(() => setMessage(null), 5000);
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -91,16 +106,38 @@ const Transcript = ({ videoContainer, transcript, summary }) => {
 
   return (
     <TranscriptContainer height={height}>
+      <OptionContainer>
+        <OptionButton
+          isSelected={isTranscriptSelected}
+          onClick={() => setIsTranscriptSelected(true)}
+        >
+          Transcript
+        </OptionButton>
+        <OptionButton
+          isSelected={!isTranscriptSelected}
+          onClick={() => setIsTranscriptSelected(false)}
+        >
+          Summary
+        </OptionButton>
+      </OptionContainer>
       <DownloadDiv>
-        <Download onClick={onSubmit}>Download Transcript</Download>
+        <button onClick={onCopy} className="button is-black">
+          <i className="fas fa-clipboard"></i>
+        </button>
+        <button onClick={onDownload} className="button is-black ml-2">
+          <i className="fas fa-download"></i>
+        </button>
       </DownloadDiv>
-      <p>{transcript}</p>
-      <DownloadDiv>
-        <Download onClick={onSubmit1}>Download Summary</Download>
-      </DownloadDiv>
-      <p>{summary}</p>
+      {isTranscriptSelected ? (
+        <>
+          <p>{transcript}</p>
+        </>
+      ) : (
+        <>
+          <p>{summary}</p>
+        </>
+      )}
     </TranscriptContainer>
-    
   );
 };
 

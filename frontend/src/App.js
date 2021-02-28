@@ -28,15 +28,37 @@ const Body = styled.section`
 function App() {
   const [video, setVideo] = useState({ video: null });
   const [data, setData] = useState(null);
+  const [message, setMessage] = useState(null);
 
   return (
     <Container>
       <Nav />
       <Body data={data}>
         {!data && (
-          <Upload setVideo={setVideo} video={video} setData={setData} />
+          <>
+            <Upload
+              setVideo={setVideo}
+              video={video}
+              setData={setData}
+              setMessage={setMessage}
+            />
+            {message && (
+              <p className="content is-normal my-0 has-text-black is-unselectable">
+                {message}
+              </p>
+            )}
+          </>
         )}
-        {data && <Grid video={video} data={data} />}
+        {data && (
+          <>
+            {message && (
+              <p className="content is-medium my-0 has-text-success-dark is-unselectable">
+                {message}
+              </p>
+            )}
+            <Grid video={video} data={data} setMessage={setMessage} />
+          </>
+        )}
       </Body>
     </Container>
   );

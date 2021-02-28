@@ -26,7 +26,7 @@ const VideoContainer = styled.div`
   }
 `;
 
-const Grid = ({ video, data }) => {
+const Grid = ({ video, data, setMessage }) => {
   const videoContainer = useRef(null);
   const VideoPlayer = useRef(null);
 
@@ -50,6 +50,7 @@ const Grid = ({ video, data }) => {
           videoContainer={videoContainer}
           transcript={data.transcript}
           summary={data.summary}
+          setMessage={setMessage}
         />
       </SecondaryContainer>
     </Container>
