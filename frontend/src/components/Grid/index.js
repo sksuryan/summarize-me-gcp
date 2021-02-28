@@ -26,7 +26,7 @@ const VideoContainer = styled.div`
   }
 `;
 
-const Grid = ({ video, data }) => {
+const Grid = ({ video, data, setMessage }) => {
   const videoContainer = useRef(null);
   const VideoPlayer = useRef(null);
 
@@ -38,8 +38,8 @@ const Grid = ({ video, data }) => {
     <Container>
       <SecondaryContainer>
         <VideoContainer>
-          <div ref={videoContainer} style={{ minHeight: "40vh" }}>
-            {/* <Player video={video} VideoPlayer={VideoPlayer} /> */}
+          <div ref={videoContainer}>
+            <Player video={video} VideoPlayer={VideoPlayer} />
           </div>
           <TimeStamps
             seekVideoPlayer={seekVideoPlayer}
@@ -49,6 +49,8 @@ const Grid = ({ video, data }) => {
         <Transcript
           videoContainer={videoContainer}
           transcript={data.transcript}
+          summary={data.summary}
+          setMessage={setMessage}
         />
       </SecondaryContainer>
     </Container>
