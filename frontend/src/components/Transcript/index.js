@@ -32,6 +32,9 @@ const TranscriptContainer = styled.div`
 
 const DownloadDiv = styled.div`
   display: flex;
+  flex-direction: column;
+
+  width: 100%;
 
   align-items: center;
   justify-content: end;
@@ -45,6 +48,7 @@ const DownloadDiv = styled.div`
 `;
 
 const OptionContainer = styled.div`
+  width: 100%;
   display: flex;
 `;
 
@@ -69,7 +73,7 @@ const OptionButton = styled.button`
 `;
 
 const Transcript = ({ videoContainer, transcript, summary, setMessage }) => {
-  const [height, setHeight] = useState(null);
+  const [height, setHeight] = useState();
   const [isTranscriptSelected, setIsTranscriptSelected] = useState(true);
 
   const onDownload = () => {
@@ -97,36 +101,39 @@ const Transcript = ({ videoContainer, transcript, summary, setMessage }) => {
     let { current } = videoContainer;
     window.addEventListener("resize", () => setHeight(current.clientHeight));
 
+    setTimeout(() => setHeight(current.clientHeight), 20);
+
     return () =>
       window.removeEventListener("resize", () =>
         setHeight(current.clientHeight)
       );
-    // eslint-disable-next-line
-  }, []);
+  }, [videoContainer]);
 
   return (
     <TranscriptContainer height={height}>
-      <OptionContainer>
-        <OptionButton
-          isSelected={isTranscriptSelected}
-          onClick={() => setIsTranscriptSelected(true)}
-        >
-          Transcript
-        </OptionButton>
-        <OptionButton
-          isSelected={!isTranscriptSelected}
-          onClick={() => setIsTranscriptSelected(false)}
-        >
-          Summary
-        </OptionButton>
-      </OptionContainer>
       <DownloadDiv>
-        <button onClick={onCopy} className="button is-black">
-          <i className="fas fa-clipboard"></i>
-        </button>
-        <button onClick={onDownload} className="button is-black ml-2">
-          <i className="fas fa-download"></i>
-        </button>
+        <OptionContainer>
+          <OptionButton
+            isSelected={isTranscriptSelected}
+            onClick={() => setIsTranscriptSelected(true)}
+          >
+            Transcript
+          </OptionButton>
+          <OptionButton
+            isSelected={!isTranscriptSelected}
+            onClick={() => setIsTranscriptSelected(false)}
+          >
+            Summary
+          </OptionButton>
+        </OptionContainer>
+        <div className="container is-flex is-justify-content-end is-fluid px-0">
+          <button onClick={onCopy} className="button is-black">
+            <i className="fas fa-clipboard"></i>
+          </button>
+          <button onClick={onDownload} className="button is-black ml-2">
+            <i className="fas fa-download"></i>
+          </button>
+        </div>
       </DownloadDiv>
       {isTranscriptSelected ? (
         <>
