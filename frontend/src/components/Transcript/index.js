@@ -68,11 +68,14 @@ const Download = styled.div`
   } ;
 `;
 
-const Transcript = ({ videoContainer, transcript }) => {
+const Transcript = ({ videoContainer, transcript, summary }) => {
   const [height, setHeight] = useState(null);
 
   const onSubmit = () => {
     window.download("Transcript.txt", transcript);
+  };
+  const onSubmit1 = () => {
+    window.download("Summary.txt", summary);
   };
 
   useEffect(() => {
@@ -92,7 +95,12 @@ const Transcript = ({ videoContainer, transcript }) => {
         <Download onClick={onSubmit}>Download Transcript</Download>
       </DownloadDiv>
       <p>{transcript}</p>
+      <DownloadDiv>
+        <Download onClick={onSubmit1}>Download Summary</Download>
+      </DownloadDiv>
+      <p>{summary}</p>
     </TranscriptContainer>
+    
   );
 };
 

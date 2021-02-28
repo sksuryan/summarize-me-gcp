@@ -49,6 +49,7 @@ const Grid = ({ video, data }) => {
         <Transcript
           videoContainer={videoContainer}
           transcript={data.transcript}
+          summary={data.summary}
         />
       </SecondaryContainer>
     </Container>
