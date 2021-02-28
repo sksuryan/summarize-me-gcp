@@ -27,7 +27,8 @@ const SubmitButton = styled.button`
   font-size: 18px;
   font-weight: 500;
 
-  margin: 16px 0;
+  margin-bottom: 8px;
+
   cursor: pointer;
 
   transition: all 0.4s ease;
@@ -71,7 +72,6 @@ const Upload = ({ setVideo, video, setData, setMessage }) => {
       setMessage("Please wait, while we process your data🥳");
     } else {
       setMessage("uh huh, please select a video😅");
-      setTimeout(() => setMessage(null), 5000);
     }
   };
 
