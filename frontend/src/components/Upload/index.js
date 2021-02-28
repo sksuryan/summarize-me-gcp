@@ -44,7 +44,7 @@ const SubmitButton = styled.button`
 const Upload = ({ setVideo, video, setData }) => {
   const [uploadStatus, setUploadStatus] = useState(null);
   const onSubmit = (e) => {
-    const URL = "";
+    const URL = "https://summarize-tzgcxgxl4a-wl.a.run.app/videos/create";
 
     if (video) {
       const formData = new FormData();

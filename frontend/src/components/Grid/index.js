@@ -38,8 +38,8 @@ const Grid = ({ video, data }) => {
     <Container>
       <SecondaryContainer>
         <VideoContainer>
-          <div ref={videoContainer} style={{ minHeight: "40vh" }}>
-            {/* <Player video={video} VideoPlayer={VideoPlayer} /> */}
+          <div ref={videoContainer}>
+            <Player video={video} VideoPlayer={VideoPlayer} />
           </div>
           <TimeStamps
             seekVideoPlayer={seekVideoPlayer}

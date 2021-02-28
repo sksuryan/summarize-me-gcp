@@ -27,11 +27,7 @@ const Body = styled.section`
 
 function App() {
   const [video, setVideo] = useState({ video: null });
-  const [data, setData] = useState({
-    transcript: "lorem ipsum",
-    summary: "Lorem ipsum",
-    keywords: {},
-  });
+  const [data, setData] = useState(null);
 
   return (
     <Container>
